@@ -116,7 +116,8 @@ namespace LEDArrayDashboardSimple
 
         private void btnShiftOne_Click(object sender, EventArgs e)
         {
-            //cycle the clk one time
+            toolStripStatusLabel1.Text = "1 clock sent";
+            statusStrip1.Refresh();
         }
 
         private void btnOutputEnable_Click(object sender, EventArgs e)
@@ -133,10 +134,39 @@ namespace LEDArrayDashboardSimple
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnNumOfCloks_Click(object sender, EventArgs e)
         {
-            statusStrip1.Text = "This is a single-panel status bar";
-            //simpleStatusBar.Text = "This is a single-panel status bar";
+            toolStripStatusLabel1.Text = txtNumOfClks.Text + " clocks sent";
+            statusStrip1.Refresh();
         }
+
+        private void txtNumOfClks_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar)) e.Handled = true;         //Just Digits
+            if (e.KeyChar == (char)8) e.Handled = false;            //Allow Backspace
+            //if (e.KeyChar == (char)13) btnNumOfCloks_Click(sender, e);  //Allow Enter 
+            if (e.KeyChar == (char)13) btnNumOfCloks.Enabled = true;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            btnNumOfCloks.Enabled = false;
+        }
+
+        private void txtNumOfClks_TextChanged(object sender, EventArgs e)
+        {
+
+            TextBox txtTEMP = (TextBox)sender;
+            if (txtTEMP.TextLength != 0)
+            {
+                int numberOfClocksEntered = Convert.ToInt32(txtTEMP.Text);
+                if (numberOfClocksEntered <= 32) btnNumOfCloks.Enabled = true;
+                else if (numberOfClocksEntered >= 0) btnNumOfCloks.Enabled = true;
+            }
+           
+
+        }
+
+
     }
 }

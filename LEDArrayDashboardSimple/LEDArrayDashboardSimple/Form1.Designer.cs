@@ -46,10 +46,13 @@
             this.btnColorBlu1 = new System.Windows.Forms.Button();
             this.btnColorRed1 = new System.Windows.Forms.Button();
             this.btnColorGrn1 = new System.Windows.Forms.Button();
-            this.txtNumOfClks = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNumOfCloks = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtNumOfClksMASK = new System.Windows.Forms.MaskedTextBox();
+            this.txtNumOfClks = new System.Windows.Forms.TextBox();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -222,22 +225,15 @@
             this.btnColorGrn1.UseVisualStyleBackColor = true;
             this.btnColorGrn1.Click += new System.EventHandler(this.btnColorGrn1_Click);
             // 
-            // txtNumOfClks
+            // btnNumOfCloks
             // 
-            this.txtNumOfClks.Location = new System.Drawing.Point(122, 91);
-            this.txtNumOfClks.Name = "txtNumOfClks";
-            this.txtNumOfClks.Size = new System.Drawing.Size(44, 20);
-            this.txtNumOfClks.TabIndex = 16;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(172, 89);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Clocks";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnNumOfCloks.Location = new System.Drawing.Point(172, 89);
+            this.btnNumOfCloks.Name = "btnNumOfCloks";
+            this.btnNumOfCloks.Size = new System.Drawing.Size(75, 23);
+            this.btnNumOfCloks.TabIndex = 17;
+            this.btnNumOfCloks.Text = "Clocks";
+            this.btnNumOfCloks.UseVisualStyleBackColor = true;
+            this.btnNumOfCloks.Click += new System.EventHandler(this.btnNumOfCloks_Click);
             // 
             // label1
             // 
@@ -250,21 +246,50 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 280);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(284, 22);
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(208, 17);
+            this.toolStripStatusLabel1.Text = "Set RGB0 and RGB1 then clk and stobe";
+            // 
+            // txtNumOfClksMASK
+            // 
+            this.txtNumOfClksMASK.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.txtNumOfClksMASK.Location = new System.Drawing.Point(225, 157);
+            this.txtNumOfClksMASK.Mask = "00";
+            this.txtNumOfClksMASK.Name = "txtNumOfClksMASK";
+            this.txtNumOfClksMASK.PromptChar = '#';
+            this.txtNumOfClksMASK.Size = new System.Drawing.Size(33, 20);
+            this.txtNumOfClksMASK.TabIndex = 20;
+            this.txtNumOfClksMASK.Visible = false;
+            // 
+            // txtNumOfClks
+            // 
+            this.txtNumOfClks.Location = new System.Drawing.Point(140, 90);
+            this.txtNumOfClks.Name = "txtNumOfClks";
+            this.txtNumOfClks.Size = new System.Drawing.Size(26, 20);
+            this.txtNumOfClks.TabIndex = 21;
+            this.txtNumOfClks.TextChanged += new System.EventHandler(this.txtNumOfClks_TextChanged);
+            this.txtNumOfClks.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumOfClks_KeyPress);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 302);
+            this.Controls.Add(this.txtNumOfClks);
+            this.Controls.Add(this.txtNumOfClksMASK);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.txtNumOfClks);
+            this.Controls.Add(this.btnNumOfCloks);
             this.Controls.Add(this.btnColorBlu1);
             this.Controls.Add(this.btnColorRed1);
             this.Controls.Add(this.btnColorGrn1);
@@ -283,6 +308,9 @@
             this.Controls.Add(this.btnColorGrn0);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,10 +335,12 @@
         private System.Windows.Forms.Button btnColorBlu1;
         private System.Windows.Forms.Button btnColorRed1;
         private System.Windows.Forms.Button btnColorGrn1;
-        private System.Windows.Forms.TextBox txtNumOfClks;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnNumOfCloks;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.MaskedTextBox txtNumOfClksMASK;
+        private System.Windows.Forms.TextBox txtNumOfClks;
     }
 }
 

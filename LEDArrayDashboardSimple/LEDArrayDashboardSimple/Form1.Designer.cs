@@ -50,7 +50,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txtNumOfClksMASK = new System.Windows.Forms.MaskedTextBox();
             this.txtNumOfClks = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -152,6 +151,7 @@
             this.chkAddrA.TabIndex = 8;
             this.chkAddrA.Text = "A";
             this.chkAddrA.UseVisualStyleBackColor = true;
+            this.chkAddrA.CheckedChanged += new System.EventHandler(this.chkAddrA_CheckedChanged);
             // 
             // chkAddrB
             // 
@@ -191,6 +191,7 @@
             this.btnSendABCD.TabIndex = 12;
             this.btnSendABCD.Text = "Send abcd";
             this.btnSendABCD.UseVisualStyleBackColor = true;
+            this.btnSendABCD.Click += new System.EventHandler(this.btnSendABCD_Click);
             // 
             // btnColorBlu1
             // 
@@ -260,20 +261,10 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(208, 17);
             this.toolStripStatusLabel1.Text = "Set RGB0 and RGB1 then clk and stobe";
             // 
-            // txtNumOfClksMASK
-            // 
-            this.txtNumOfClksMASK.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.txtNumOfClksMASK.Location = new System.Drawing.Point(225, 157);
-            this.txtNumOfClksMASK.Mask = "00";
-            this.txtNumOfClksMASK.Name = "txtNumOfClksMASK";
-            this.txtNumOfClksMASK.PromptChar = '#';
-            this.txtNumOfClksMASK.Size = new System.Drawing.Size(33, 20);
-            this.txtNumOfClksMASK.TabIndex = 20;
-            this.txtNumOfClksMASK.Visible = false;
-            // 
             // txtNumOfClks
             // 
             this.txtNumOfClks.Location = new System.Drawing.Point(140, 90);
+            this.txtNumOfClks.MaxLength = 2;
             this.txtNumOfClks.Name = "txtNumOfClks";
             this.txtNumOfClks.Size = new System.Drawing.Size(26, 20);
             this.txtNumOfClks.TabIndex = 21;
@@ -286,7 +277,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 302);
             this.Controls.Add(this.txtNumOfClks);
-            this.Controls.Add(this.txtNumOfClksMASK);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnNumOfCloks);
@@ -339,7 +329,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.MaskedTextBox txtNumOfClksMASK;
         private System.Windows.Forms.TextBox txtNumOfClks;
     }
 }

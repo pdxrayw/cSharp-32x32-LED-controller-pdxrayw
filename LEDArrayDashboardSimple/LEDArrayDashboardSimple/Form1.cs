@@ -8,9 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace LEDArrayDashboardSimple
-{
+{   
     public partial class Form1 : Form
     {
+
+        public enum signals { r0, g0, b0, r1, g1, b1, a, b, c, d, clk, stb, OE};
         public Form1()
         {
             InitializeComponent();
@@ -116,8 +118,9 @@ namespace LEDArrayDashboardSimple
 
         private void btnShiftOne_Click(object sender, EventArgs e)
         {
-            toolStripStatusLabel1.Text = "1 clock sent";
-            statusStrip1.Refresh();
+            send_data_toArduino(signals.clk); 
+            //toolStripStatusLabel1.Text = "1 clock sent";
+            //statusStrip1.Refresh();
         }
 
         private void btnOutputEnable_Click(object sender, EventArgs e)
@@ -142,10 +145,22 @@ namespace LEDArrayDashboardSimple
 
         private void txtNumOfClks_KeyPress(object sender, KeyPressEventArgs e)
         {
+            TextBox txtTEMP = (TextBox)sender;
+            if (txtTEMP.TextLength == 1)
+            {
+                if (e.KeyChar == (char)8){
+                    btnNumOfCloks.Enabled = false; //if text feild empty no button
+                }
+                else if (txtTEMP.TextLength != 0) btnNumOfCloks.Enabled = true;
+            }
+            
+
             if (!char.IsDigit(e.KeyChar)) e.Handled = true;         //Just Digits
             if (e.KeyChar == (char)8) e.Handled = false;            //Allow Backspace
+
             //if (e.KeyChar == (char)13) btnNumOfCloks_Click(sender, e);  //Allow Enter 
             if (e.KeyChar == (char)13) btnNumOfCloks.Enabled = true;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -167,6 +182,41 @@ namespace LEDArrayDashboardSimple
 
         }
 
+        private void btnSendABCD_Click(object sender, EventArgs e)
+        {
+            if (true)
+            {
+                
+            }
+            
+            toolStripStatusLabel1.Text = "Address sent"; //display actual
+            statusStrip1.Refresh();
 
+        }
+
+        private void chkAddrA_CheckedChanged(object sender, EventArgs e)
+        {
+           
+            CheckBox chkTEMP = (CheckBox)sender;
+
+            if (chkTEMP.Checked == true)
+            {   
+                send_data_toArduino(signals.a); 
+                //send address "a" on to LED32 else off
+                //toolStripStatusLabel1.Text = "Address a on"; //display actual
+                //statusStrip1.Refresh();
+            }
+            else
+            {
+                toolStripStatusLabel1.Text = "Address a off"; //display actual
+                statusStrip1.Refresh();   //send address "a" off signal to LED32
+            }
+        }
+
+        private void send_data_toArduino(signals signal) 
+        {
+            toolStripStatusLabel1.Text = "Signal '" + signal + "' toggle sent to Arduino"; //display actual
+            statusStrip1.Refresh();   //send address "a" off signal to LED32
+        }
     }
 }

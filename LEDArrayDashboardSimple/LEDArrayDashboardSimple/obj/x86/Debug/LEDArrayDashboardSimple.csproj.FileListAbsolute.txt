@@ -1,0 +1,16 @@
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.csprojResolveAssemblyReference.cache
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.Form1.resources
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.Properties.Resources.resources
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.csproj.GenerateResource.Cache
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\bin\Debug\LEDArrayDashboardSimple.exe
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\bin\Debug\LEDArrayDashboardSimple.pdb
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.exe
+C:\Users\Ray.Apollo\documents\visual studio 2010\Projects\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.pdb
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.exe
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.pdb
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\bin\Debug\LEDArrayDashboardSimple.exe
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\bin\Debug\LEDArrayDashboardSimple.pdb
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.csprojResolveAssemblyReference.cache
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.Form1.resources
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.Properties.Resources.resources
+C:\Users\Ray\Documents\arduino\LEDArrayDashboardSimple\LEDArrayDashboardSimple\obj\x86\Debug\LEDArrayDashboardSimple.csproj.GenerateResource.Cache

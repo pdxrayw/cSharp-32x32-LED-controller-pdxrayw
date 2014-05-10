@@ -1,0 +1,172 @@
+txtNumOfClks
+
+int num;
+bool isNum = Integer.TryParse(txtHomePhone.Text.Trim(), out num);
+
+if (!isNum)
+    //Display error
+else
+    //Carry on with the rest of program ie. Add Phone number to program.
+
+
+private void txtAditionalBatch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar)) e.Handled = true;         //Just Digits
+            if (e.KeyChar == (char)8) e.Handled = false;            //Allow Backspace
+            if (e.KeyChar == (char)13) btnSearch_Click(sender, e);  //Allow Enter            
+        }
+
+How to do a c# case statement
+using System;
+
+class Program
+{
+    static void Main()
+    {
+	int value = 5;
+	switch (value)
+	{
+	    case 1:
+		Console.WriteLine(1);
+		break;
+	    case 5:
+		Console.WriteLine(5);
+		break;
+	}
+    }
+}
+//--need to------ figure out how to first, color in the Hovered over cell
+//then permanantly paint into the cell on mouseclick
+//draw grids in a picturebox
+private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            int numOfCells = 32;
+            int cellSize = 5;
+            Pen p = new Pen(Color.Black);
+
+            for (int y = 0; y < numOfCells; ++y)
+            {
+                g.DrawLine(p, 0, y * cellSize, numOfCells * cellSize, y * cellSize);
+            }
+
+            for (int x = 0; x < numOfCells; ++x)
+            {
+                g.DrawLine(p, x * cellSize, 0, x * cellSize, numOfCells * cellSize);
+            }
+        }
+
+
+//capture mouse hover over a picturebox
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            this.Cursor = new Cursor(Cursor.Current.Handle);
+
+            int xCoordinate = Cursor.Position.X;
+            int yCoordinate = Cursor.Position.Y;
+            // then divide the position by the size of the cells
+            //or the number of cells to get the corresponding 
+            //matrix number in terms of 32x32
+
+            //Graphics g = e.Graphics;
+            //int numOfCells = 200;
+            //int cellSize = 5;
+            //Pen p = new Pen(Color.Black);
+            
+            //int xCoordinate = e.X;
+            //int yCoordinate = e.Y;
+        }
+
+look into enum casting to int and possibly sending an int or char only over
+the serial channel odd number ons work evens do not but for switch statements
+it may not even matter
+
+May need to read in all data and put it into a string or something by
+concatonating or mabey just something + next read. not sure.
+
+Above works
+For Sketch 
+Next write functions that read in the serial data and check switch statement for which 
+signal to adjust.
+May still need to do some minor error checking on the text field, for strange behavior?.
+
+for c# application
+issues are Some have been resolved need to check
+entering 0 
+entering 0 and backspace
+entering 0 and space bar
+All letters
+Entering 00 or double zero
+
+Also need to combine parts of firstLEDcontrol and LEDcontrolFromSimpleDashboard
+
+digitalWrite(r0, LOW); 
+digitalWrite(g0, LOW); 
+digitalWrite(b0, LOW); 
+digitalWrite(r1, LOW); 
+digitalWrite(g1, LOW); 
+digitalWrite(b1, LOW); 
+digitalWrite(A, LOW); 
+digitalWrite(B, LOW); 
+digitalWrite(C, LOW); 
+digitalWrite(D, LOW); 
+digitalWrite(stb, LOW); 
+digitalWrite(clk, LOW); 
+digitalWrite(OE, HIGH);
+
+Do I even need a switch statement? can I just send the correct value
+to a function to turn on the right pin and return a "strSignal"
+or even an intSignal to the function??
+
+hmmmmThinking.....how to do that??? .........
+
+enum signalsEnum {
+      r0 = 1,
+      g0 = 2,
+      b0 = 3,
+      r1 = 4,
+      g1 = 5,
+      b1 = 6,
+      A = 11,
+      B = 10,
+      C = 9,
+      D = 8,
+      stb = 12,
+      clk = 13,
+      OE = 0
+      };
+
+
+
+typedef enum signalsEnum {
+      r0 = 1,
+      g0 = 2,
+      b0 = 3,
+      r1 = 4,
+      g1 = 5,
+      b1 = 6,
+      A = 11,
+      B = 10,
+      C = 9,
+      D = 8,
+      stb = 12,
+      clk = 13,
+      OE = 0
+};
+
+  int r0 = 1;
+  int g0 = 2;
+  int b0 = 3;
+  int r1 = 4;
+  int g1 = 5;
+  int b1 = 6;
+  int A = 11;
+  int B = 10;
+  int C = 9;
+  int D = 8;
+  int stb = 12;
+  int clk = 13;
+  int OE = 0;
+  //int grd1 = 7
+  //int grd2 = 
+  int index = 0;

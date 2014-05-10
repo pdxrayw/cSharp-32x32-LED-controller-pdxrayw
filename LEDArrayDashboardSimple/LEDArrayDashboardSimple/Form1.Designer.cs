@@ -36,8 +36,6 @@
             this.btnShiftOne = new System.Windows.Forms.Button();
             this.btnStrobe = new System.Windows.Forms.Button();
             this.btnOutputEnable = new System.Windows.Forms.Button();
-            this.btnAddress1 = new System.Windows.Forms.Button();
-            this.btnAddress2 = new System.Windows.Forms.Button();
             this.chkAddrA = new System.Windows.Forms.CheckBox();
             this.chkAddrB = new System.Windows.Forms.CheckBox();
             this.chkAddrC = new System.Windows.Forms.CheckBox();
@@ -51,7 +49,15 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtNumOfClks = new System.Windows.Forms.TextBox();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.statusStrip1.SuspendLayout();
+            this.statusStrip2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -94,18 +100,18 @@
             // 
             // btnShiftOne
             // 
-            this.btnShiftOne.Location = new System.Drawing.Point(12, 89);
+            this.btnShiftOne.Location = new System.Drawing.Point(48, 13);
             this.btnShiftOne.Name = "btnShiftOne";
             this.btnShiftOne.Size = new System.Drawing.Size(75, 23);
             this.btnShiftOne.TabIndex = 3;
-            this.btnShiftOne.Text = "Shift 1 Clk";
+            this.btnShiftOne.Text = "Send 1 Clk";
             this.btnShiftOne.UseVisualStyleBackColor = true;
             this.btnShiftOne.Click += new System.EventHandler(this.btnShiftOne_Click);
             // 
             // btnStrobe
             // 
             this.btnStrobe.ForeColor = System.Drawing.Color.DarkGray;
-            this.btnStrobe.Location = new System.Drawing.Point(101, 118);
+            this.btnStrobe.Location = new System.Drawing.Point(140, 169);
             this.btnStrobe.Name = "btnStrobe";
             this.btnStrobe.Size = new System.Drawing.Size(75, 23);
             this.btnStrobe.TabIndex = 4;
@@ -116,7 +122,7 @@
             // btnOutputEnable
             // 
             this.btnOutputEnable.ForeColor = System.Drawing.Color.DarkGray;
-            this.btnOutputEnable.Location = new System.Drawing.Point(101, 252);
+            this.btnOutputEnable.Location = new System.Drawing.Point(140, 207);
             this.btnOutputEnable.Name = "btnOutputEnable";
             this.btnOutputEnable.Size = new System.Drawing.Size(75, 23);
             this.btnOutputEnable.TabIndex = 5;
@@ -124,28 +130,10 @@
             this.btnOutputEnable.UseVisualStyleBackColor = true;
             this.btnOutputEnable.Click += new System.EventHandler(this.btnOutputEnable_Click);
             // 
-            // btnAddress1
-            // 
-            this.btnAddress1.Location = new System.Drawing.Point(34, 155);
-            this.btnAddress1.Name = "btnAddress1";
-            this.btnAddress1.Size = new System.Drawing.Size(75, 23);
-            this.btnAddress1.TabIndex = 6;
-            this.btnAddress1.Text = "Address 1";
-            this.btnAddress1.UseVisualStyleBackColor = true;
-            // 
-            // btnAddress2
-            // 
-            this.btnAddress2.Location = new System.Drawing.Point(34, 203);
-            this.btnAddress2.Name = "btnAddress2";
-            this.btnAddress2.Size = new System.Drawing.Size(75, 23);
-            this.btnAddress2.TabIndex = 7;
-            this.btnAddress2.Text = "Address 2";
-            this.btnAddress2.UseVisualStyleBackColor = true;
-            // 
             // chkAddrA
             // 
             this.chkAddrA.AutoSize = true;
-            this.chkAddrA.Location = new System.Drawing.Point(132, 155);
+            this.chkAddrA.Location = new System.Drawing.Point(51, 151);
             this.chkAddrA.Name = "chkAddrA";
             this.chkAddrA.Size = new System.Drawing.Size(33, 17);
             this.chkAddrA.TabIndex = 8;
@@ -156,41 +144,45 @@
             // chkAddrB
             // 
             this.chkAddrB.AutoSize = true;
-            this.chkAddrB.Location = new System.Drawing.Point(132, 179);
+            this.chkAddrB.Location = new System.Drawing.Point(51, 175);
             this.chkAddrB.Name = "chkAddrB";
             this.chkAddrB.Size = new System.Drawing.Size(33, 17);
             this.chkAddrB.TabIndex = 9;
             this.chkAddrB.Text = "B";
             this.chkAddrB.UseVisualStyleBackColor = true;
+            this.chkAddrB.CheckedChanged += new System.EventHandler(this.chkAddrB_CheckedChanged);
             // 
             // chkAddrC
             // 
             this.chkAddrC.AutoSize = true;
-            this.chkAddrC.Location = new System.Drawing.Point(132, 203);
+            this.chkAddrC.Location = new System.Drawing.Point(51, 199);
             this.chkAddrC.Name = "chkAddrC";
             this.chkAddrC.Size = new System.Drawing.Size(33, 17);
             this.chkAddrC.TabIndex = 10;
             this.chkAddrC.Text = "C";
             this.chkAddrC.UseVisualStyleBackColor = true;
+            this.chkAddrC.CheckedChanged += new System.EventHandler(this.chkAddrC_CheckedChanged);
             // 
             // chkAddrD
             // 
             this.chkAddrD.AutoSize = true;
-            this.chkAddrD.Location = new System.Drawing.Point(132, 227);
+            this.chkAddrD.Location = new System.Drawing.Point(51, 223);
             this.chkAddrD.Name = "chkAddrD";
             this.chkAddrD.Size = new System.Drawing.Size(34, 17);
             this.chkAddrD.TabIndex = 11;
             this.chkAddrD.Text = "D";
             this.chkAddrD.UseVisualStyleBackColor = true;
+            this.chkAddrD.CheckedChanged += new System.EventHandler(this.chkAddrD_CheckedChanged);
             // 
             // btnSendABCD
             // 
-            this.btnSendABCD.Location = new System.Drawing.Point(183, 227);
+            this.btnSendABCD.Location = new System.Drawing.Point(197, 236);
             this.btnSendABCD.Name = "btnSendABCD";
             this.btnSendABCD.Size = new System.Drawing.Size(75, 23);
             this.btnSendABCD.TabIndex = 12;
             this.btnSendABCD.Text = "Send abcd";
             this.btnSendABCD.UseVisualStyleBackColor = true;
+            this.btnSendABCD.Visible = false;
             this.btnSendABCD.Click += new System.EventHandler(this.btnSendABCD_Click);
             // 
             // btnColorBlu1
@@ -228,58 +220,129 @@
             // 
             // btnNumOfCloks
             // 
-            this.btnNumOfCloks.Location = new System.Drawing.Point(172, 89);
+            this.btnNumOfCloks.Location = new System.Drawing.Point(158, 38);
             this.btnNumOfCloks.Name = "btnNumOfCloks";
-            this.btnNumOfCloks.Size = new System.Drawing.Size(75, 23);
+            this.btnNumOfCloks.Size = new System.Drawing.Size(51, 23);
             this.btnNumOfCloks.TabIndex = 17;
-            this.btnNumOfCloks.Text = "Clocks";
+            this.btnNumOfCloks.Text = "Send";
             this.btnNumOfCloks.UseVisualStyleBackColor = true;
             this.btnNumOfCloks.Click += new System.EventHandler(this.btnNumOfCloks_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(98, 95);
+            this.label1.Location = new System.Drawing.Point(134, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 13);
+            this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 18;
-            this.label1.Text = "OR";
+            this.label1.Text = " - OR - ";
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 280);
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel5});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 278);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(284, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(257, 24);
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(208, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(218, 19);
+            this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "Set RGB0 and RGB1 then clk and stobe";
             // 
             // txtNumOfClks
             // 
-            this.txtNumOfClks.Location = new System.Drawing.Point(140, 90);
+            this.txtNumOfClks.Location = new System.Drawing.Point(129, 39);
             this.txtNumOfClks.MaxLength = 2;
             this.txtNumOfClks.Name = "txtNumOfClks";
             this.txtNumOfClks.Size = new System.Drawing.Size(26, 20);
             this.txtNumOfClks.TabIndex = 21;
+            this.txtNumOfClks.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtNumOfClks_MouseClick);
             this.txtNumOfClks.TextChanged += new System.EventHandler(this.txtNumOfClks_TextChanged);
             this.txtNumOfClks.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumOfClks_KeyPress);
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.AutoSize = false;
+            this.statusStrip2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.statusStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 254);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(257, 24);
+            this.statusStrip2.TabIndex = 22;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.AutoSize = false;
+            this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(156, 19);
+            this.toolStripStatusLabel2.Spring = true;
+            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.AutoSize = false;
+            this.toolStripStatusLabel3.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.toolStripStatusLabel3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(55, 19);
+            this.toolStripStatusLabel3.Text = "Stb Off";
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.AutoSize = false;
+            this.toolStripStatusLabel5.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel5.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(55, 19);
+            this.toolStripStatusLabel5.Text = "OE High";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Enter number of clocks";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnShiftOne);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnNumOfCloks);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtNumOfClks);
+            this.groupBox1.Location = new System.Drawing.Point(21, 76);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(216, 69);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Send Clocks";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 302);
-            this.Controls.Add(this.txtNumOfClks);
+            this.ClientSize = new System.Drawing.Size(257, 302);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnNumOfCloks);
             this.Controls.Add(this.btnColorBlu1);
             this.Controls.Add(this.btnColorRed1);
             this.Controls.Add(this.btnColorGrn1);
@@ -288,19 +351,20 @@
             this.Controls.Add(this.chkAddrC);
             this.Controls.Add(this.chkAddrB);
             this.Controls.Add(this.chkAddrA);
-            this.Controls.Add(this.btnAddress2);
-            this.Controls.Add(this.btnAddress1);
             this.Controls.Add(this.btnOutputEnable);
             this.Controls.Add(this.btnStrobe);
-            this.Controls.Add(this.btnShiftOne);
             this.Controls.Add(this.btnColorBlu0);
             this.Controls.Add(this.btnColorRed0);
             this.Controls.Add(this.btnColorGrn0);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "LED Dashboard";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,8 +379,6 @@
         private System.Windows.Forms.Button btnShiftOne;
         private System.Windows.Forms.Button btnStrobe;
         private System.Windows.Forms.Button btnOutputEnable;
-        private System.Windows.Forms.Button btnAddress1;
-        private System.Windows.Forms.Button btnAddress2;
         private System.Windows.Forms.CheckBox chkAddrA;
         private System.Windows.Forms.CheckBox chkAddrB;
         private System.Windows.Forms.CheckBox chkAddrC;
@@ -330,6 +392,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TextBox txtNumOfClks;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

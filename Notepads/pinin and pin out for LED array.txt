@@ -1,0 +1,25 @@
+//Start with everything off
+digitalWrite(r0, LOW); 
+digitalWrite(g0, LOW); 
+digitalWrite(b0, LOW); 
+digitalWrite(r1, LOW); 
+digitalWrite(g1, LOW); 
+digitalWrite(b1, LOW); 
+digitalWrite(A, LOW); 
+digitalWrite(B, LOW); 
+digitalWrite(C, LOW); 
+digitalWrite(D, LOW); 
+digitalWrite(stb, LOW); 
+digitalWrite(clk, LOW); 
+digitalWrite(OE, HIGH);
+//wait 50 for system to settle
+delay(50);
+digitalWrite(OE, LOW); //turn on OE
+digitalWrite(r0, HIGH); //red 0 high
+digitalWrite(g1, HIGH); //green 1 high
+delay(10);
+digitalWrite(clk, HIGH);
+delay(1);
+digitalWrite(clk, LOW); 
+digitalWrite(stb, HIGH);   
+

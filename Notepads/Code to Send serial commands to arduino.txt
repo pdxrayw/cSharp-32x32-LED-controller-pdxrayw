@@ -1,0 +1,117 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace ArduinoControl_one
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.Open();
+                    serialPort1.Write("0");
+                    textBox1.Text = serialPort1.ReadLine();
+                    serialPort1.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error. Please make sure that the correct port was selected, and the device, plugged in.");
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.Open();
+                    serialPort1.Write("1");
+                    textBox1.Text = serialPort1.ReadLine();
+                    serialPort1.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error. Please make sure that the correct port was selected, and the device, plugged in.");
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.Open();
+                    serialPort1.Write("3");
+                    textBox1.Text = serialPort1.ReadLine();
+                    serialPort1.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error. Please make sure that the correct port was selected, and the device, plugged in.");
+                }
+            }
+        }
+
+        
+    }
+}
+//======Below this line is the arduino Sketch==============
+
+/*
+int ledPin13 = 13; // the number of the LED pin
+
+void setup() {
+Serial.begin(9600); // set serial speed
+pinMode(ledPin13, OUTPUT); // set LED as output
+digitalWrite(ledPin13, LOW); //turn off LED
+}
+
+enum active{ HIGH, LOW};
+void loop(){
+  while (Serial.available() == 0); // do nothing if nothing sent
+  int val = Serial.read() - '0'; // deduct ascii value of '0' to find numeric value of sent number
+
+  if (val == 1) { // test for command 1 then turn on LED
+    Serial.println("LED on");
+    digitalWrite(ledPin13, HIGH); // turn on LED
+  }
+  else if (val == 0) // test for command 0 then turn off LED
+       {
+        Serial.println("LED OFF");
+        digitalWrite(ledPin13, LOW); // turn off LED
+       }
+  else if (val == 3) // test for command 0 then turn off LED
+       {
+        Serial.println("LED blink");
+        digitalWrite(ledPin13, LOW); // turn off LED
+        while (!Serial.available()){
+          //how do I blink the led until more serial data comes in?
+          delay(300);
+          digitalWrite(ledPin13, HIGH); // turn off LED
+          delay(300);
+          digitalWrite(ledPin13, LOW); // turn off LED
+        }
+       }
+  
+  Serial.flush(); // clear serial port
+}
+
+*/

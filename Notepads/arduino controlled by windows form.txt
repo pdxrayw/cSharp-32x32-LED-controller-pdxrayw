@@ -1,0 +1,86 @@
+arduino controlled by windows form
+
+
+WARNING: On my PC I had to close the Arduino IDE Serial Monitor window while runing the VB program, else I run into all sorts of error message about COM port access denied and the program will fail.
+
+You can download Visual Basic Express 2010 for free from Microsoft
+http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-basic-express
+
+
+'------------ START OF VB 2010 CODE -----------------
+' NOTE: I am using COM10 so you need to change the Visual Basic code to match your COM port
+
+Imports System.IO
+Imports System.IO.Ports
+Imports System.Threading
+
+Public Class Form1
+Shared _continue As Boolean
+Shared _serialPort As SerialPort
+
+Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+SerialPort1.Close()
+SerialPort1.PortName = "com10" 'change com port to match your Arduino port
+SerialPort1.BaudRate = 9600
+SerialPort1.DataBits = 8
+SerialPort1.Parity = Parity.None
+SerialPort1.StopBits = StopBits.One
+SerialPort1.Handshake = Handshake.None
+SerialPort1.Encoding = System.Text.Encoding.Default 'very important!
+End Sub
+
+
+Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+SerialPort1.Open()
+SerialPort1.Write("1")
+SerialPort1.Close()
+End Sub
+
+
+Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+SerialPort1.Open()
+SerialPort1.Write("0")
+SerialPort1.Close()
+End Sub
+End Class
+
+
+'------------ END OF VB 2010 CODE -----------------
+
+
+//------------- START OF ARDUINO SKETCH -----------------
+//
+// Mixed by: Hazim Bitar
+// Based on: Science Guy 14 youTube tutorial http://youtu.be/g0pSfyXOXj8
+
+int ledPin = 13; // the number of the LED pin
+
+void setup() {
+Serial.begin(9600); // set serial speed
+pinMode(ledPin, OUTPUT); // set LED as output
+digitalWrite(ledPin, LOW); //turn off LED
+}
+
+
+void loop(){
+while (Serial.available() == 0); // do nothing if nothing sent
+int val = Serial.read() - '0'; // deduct ascii value of '0' to find numeric value of sent number
+
+if (val == 1) { // test for command 1 then turn on LED
+Serial.println("LED on");
+digitalWrite(ledPin, HIGH); // turn on LED
+}
+else if (val == 0) // test for command 0 then turn off LED
+{
+Serial.println("LED OFF");
+digitalWrite(ledPin, LOW); // turn off LED
+}
+else // if not one of above command, do nothing
+{
+//val = val;
+}
+Serial.println(val);
+Serial.flush(); // clear serial port
+}
+
+//------------- END OF ARDUINO SKETCH -----------------

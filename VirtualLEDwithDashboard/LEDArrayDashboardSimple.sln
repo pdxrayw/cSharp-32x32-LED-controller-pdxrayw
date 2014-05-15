@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEDArrayDashboardSimple", "LEDArrayDashboardSimple\LEDArrayDashboardSimple.csproj", "{7257591A-AF24-4B88-A4CD-AE8517D0E598}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4636F1C-A374-46C1-98E1-F1E5AD3993F5}"
+	ProjectSection(SolutionItems) = preProject
+		projectNotes.cs = projectNotes.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

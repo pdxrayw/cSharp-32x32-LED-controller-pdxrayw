@@ -58,10 +58,14 @@
             this.btnExpand = new System.Windows.Forms.Button();
             this.btnCollapse = new System.Windows.Forms.Button();
             this.pboxLEDmatrix = new System.Windows.Forms.PictureBox();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.statusStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLEDmatrix)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -344,6 +348,7 @@
             // 
             // btnVirtReal
             // 
+            this.btnVirtReal.Enabled = false;
             this.btnVirtReal.Location = new System.Drawing.Point(138, 164);
             this.btnVirtReal.Name = "btnVirtReal";
             this.btnVirtReal.Size = new System.Drawing.Size(75, 23);
@@ -367,7 +372,7 @@
             // btnCollapse
             // 
             this.btnCollapse.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnCollapse.Location = new System.Drawing.Point(272, 222);
+            this.btnCollapse.Location = new System.Drawing.Point(9, 205);
             this.btnCollapse.Name = "btnCollapse";
             this.btnCollapse.Size = new System.Drawing.Size(31, 23);
             this.btnCollapse.TabIndex = 1;
@@ -377,20 +382,53 @@
             // 
             // pboxLEDmatrix
             // 
-            this.pboxLEDmatrix.Location = new System.Drawing.Point(272, 48);
+            this.pboxLEDmatrix.BackColor = System.Drawing.Color.Gray;
+            this.pboxLEDmatrix.Location = new System.Drawing.Point(9, 19);
             this.pboxLEDmatrix.Name = "pboxLEDmatrix";
             this.pboxLEDmatrix.Size = new System.Drawing.Size(161, 161);
             this.pboxLEDmatrix.TabIndex = 28;
             this.pboxLEDmatrix.TabStop = false;
             this.pboxLEDmatrix.Paint += new System.Windows.Forms.PaintEventHandler(this.pboxLEDmatrix_Paint);
             // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(67, 205);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 29;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.pboxLEDmatrix);
+            this.groupBox2.Controls.Add(this.btnReset);
+            this.groupBox2.Controls.Add(this.btnCollapse);
+            this.groupBox2.Location = new System.Drawing.Point(268, 19);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(179, 231);
+            this.groupBox2.TabIndex = 30;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Virtual LED";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 186);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.TabIndex = 30;
+            this.label3.Text = "Reset Turns LED Off/ON";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 301);
-            this.Controls.Add(this.pboxLEDmatrix);
-            this.Controls.Add(this.btnCollapse);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnExpand);
             this.Controls.Add(this.btnVirtReal);
             this.Controls.Add(this.groupBox1);
@@ -418,6 +456,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxLEDmatrix)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,6 +494,9 @@
         private System.Windows.Forms.Button btnExpand;
         private System.Windows.Forms.Button btnCollapse;
         private System.Windows.Forms.PictureBox pboxLEDmatrix;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

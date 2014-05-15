@@ -54,7 +54,9 @@ namespace LEDArrayDashboardSimple
                 }
 
         };
-
+        // maybe set up a struct with the color key in binary or decimal or both?
+        //and a Color.Crimson; sort of based on the decimal number in the enum
+        
         public enum rgbColors
         {               ///rgb
             grey = 0,   ///000//black LED is off
@@ -70,18 +72,30 @@ namespace LEDArrayDashboardSimple
         public signalsStruct r0 = new signalsStruct();
         public signalsStruct g0 = new signalsStruct();
         public signalsStruct b0 = new signalsStruct();
+        public signalsStruct r1 = new signalsStruct();
+        public signalsStruct g1 = new signalsStruct();
+        public signalsStruct b1 = new signalsStruct();
 
+        public signalsStruct A = new signalsStruct();
+        public signalsStruct B = new signalsStruct();
+        public signalsStruct C = new signalsStruct();
+        public signalsStruct D = new signalsStruct();
+
+        public signalsStruct stb = new signalsStruct();
         public signalsStruct OE = new signalsStruct();
         public signalsStruct clk = new signalsStruct();
 
         Stack<int> topRow = new Stack<int>();
-        int[] bottomRow = new int[32];
+        Stack<int> bottomRow = new Stack<int>();
+
+        //this is the integer representation of the address signals ABCD
+        int address = 0;
 
         public Form1()
         {
             InitializeComponent();
             
-            
+            //color signals rgb0
             r0.SignalName = signals.r0;
             r0.Active = false;
             g0.SignalName = signals.g0;
@@ -89,17 +103,44 @@ namespace LEDArrayDashboardSimple
             b0.SignalName = signals.b0;
             b0.Active = false;
 
-           OE.SignalName = signals.OE;         
-           OE.Active = true;
+            //color signals rgb1
+            r1.SignalName = signals.r1;
+            r1.Active = false;
+            g1.SignalName = signals.g1;
+            g1.Active = false;
+            b1.SignalName = signals.b1;
+            b1.Active = false;
 
-           clk.SignalName = signals.clk;
-           clk.Active = false;
+            //address signals
+            A.SignalName = signals.A;
+            A.Active = false;
+            B.SignalName = signals.B;
+            B.Active = false;
+            C.SignalName = signals.C;
+            C.Active = false;
+            D.SignalName = signals.D;
+            D.Active = false;
+
+
+            
+            //control signals
+            stb.SignalName = signals.stb;
+            stb.Active = false;
+
+            OE.SignalName = signals.OE;         
+            OE.Active = true;
+
+            clk.SignalName = signals.clk;
+            clk.Active = false;
         }
 
         private void btnStrobe_Click(object sender, EventArgs e)
         {
             //send_data_toArduino(signals.stb); 
             send_signal_to_virtual_LED(signals.stb);
+            if (!OE.Active)
+                if (stb.Active) draw_row();
+            if (!stb.Active) clear_row();
             if (btnStrobe.ForeColor == Color.Black)
             {
                 toolStripStatusLabel3.Text = "Stb off";
@@ -135,7 +176,8 @@ namespace LEDArrayDashboardSimple
 
         private void btnColorGrn1_Click(object sender, EventArgs e)
         {
-            send_data_toArduino(signals.g1); 
+            //send_data_toArduino(signals.g1);
+            send_signal_to_virtual_LED(signals.g1);
             if (btnColorGrn1.ForeColor == Color.Green)
             {
                 btnColorGrn1.ForeColor = Color.DarkGray;
@@ -166,7 +208,8 @@ namespace LEDArrayDashboardSimple
 
         private void btnColorRed1_Click(object sender, EventArgs e)
         {
-            send_data_toArduino(signals.r1); 
+            //send_data_toArduino(signals.r1); 
+            send_signal_to_virtual_LED(signals.r1);
             if (btnColorRed1.ForeColor == Color.Crimson)
             {
                 btnColorRed1.ForeColor = Color.DarkGray;
@@ -197,7 +240,8 @@ namespace LEDArrayDashboardSimple
 
         private void btnColorBlu1_Click(object sender, EventArgs e)
         {
-            send_data_toArduino(signals.b1); 
+            //send_data_toArduino(signals.b1); 
+            send_signal_to_virtual_LED(signals.b1);
             if (btnColorBlu1.ForeColor == Color.RoyalBlue)
             {
                 btnColorBlu1.ForeColor = Color.DarkGray;
@@ -223,6 +267,9 @@ namespace LEDArrayDashboardSimple
         {
             //send_data_toArduino(signals.OE); 
             send_signal_to_virtual_LED(signals.OE);
+            if (!OE.Active)
+                if (stb.Active) draw_row();
+            if (OE.Active) clear_row();
             if (btnOutputEnable.ForeColor == Color.Black)
             {
                 toolStripStatusLabel5.Text = "OE High";
@@ -243,9 +290,11 @@ namespace LEDArrayDashboardSimple
         {
             int numberOfClocksEntered = Convert.ToInt32(txtNumOfClks.Text);
 
-            for (int i = 0; i < numberOfClocksEntered+1; i++)
+            for (int i = 0; i < numberOfClocksEntered; i++)
             {
-                send_data_toArduino(signals.clk);
+                //send_data_toArduino(signals.clk);
+                send_signal_to_virtual_LED(signals.clk);
+                clock();
                 toolStripStatusLabel1.Text = i + " clocks sent";
             }
             //txtNumOfClks.Text
@@ -312,7 +361,14 @@ namespace LEDArrayDashboardSimple
 
         private void chkAddrA_CheckedChanged(object sender, EventArgs e)
         {
-            send_data_toArduino(signals.A); 
+            //send_data_toArduino(signals.A);
+            send_signal_to_virtual_LED(signals.A);
+            
+            clear_row();//clear the current row before changing the address
+            set_address();//sett the new address
+
+            if (!OE.Active)
+                if (stb.Active) draw_row();//draw the entire new row
             //CheckBox chkTEMP = (CheckBox)sender;
 
             //if (chkTEMP.Checked == true)
@@ -329,35 +385,43 @@ namespace LEDArrayDashboardSimple
             //}
         }
 
+       
+
         
 
         private void chkAddrB_CheckedChanged(object sender, EventArgs e)
         {   
-            send_data_toArduino(signals.B);
-            CheckBox chkTEMP = (CheckBox)sender;
+            //send_data_toArduino(signals.B);
 
-            if (chkTEMP.Checked == true)
-            {
-                
-                //send address "a" on to LED32 else off
-                //toolStripStatusLabel1.Text = "Address a on"; //display actual
-                //statusStrip1.Refresh();
-            }
-            else
-            {
-                //toolStripStatusLabel1.Text = "Address a off"; //display actual
-                //statusStrip1.Refresh();   //send address "a" off signal to LED32
-            }
+            send_signal_to_virtual_LED(signals.B);
+
+            clear_row();//clear the current row before changing the address
+            set_address();//sett the new address
+            if (!OE.Active)
+                if (stb.Active) draw_row();
+            
         }
 
         private void chkAddrC_CheckedChanged(object sender, EventArgs e)
         {
-            send_data_toArduino(signals.C);
+            //send_data_toArduino(signals.C);
+            send_signal_to_virtual_LED(signals.C);
+
+            clear_row();//clear the current row before changing the address
+            set_address();//sett the new address
+            if (!OE.Active)
+                if (stb.Active) draw_row();
         }
 
         private void chkAddrD_CheckedChanged(object sender, EventArgs e)
         {
-            send_data_toArduino(signals.D);
+            //send_data_toArduino(signals.D);
+            send_signal_to_virtual_LED(signals.D);
+
+            clear_row();//clear the current row before changing the address
+            set_address();//sett the new address
+            if (!OE.Active)
+                if (stb.Active) draw_row();
         }
 
         private void txtNumOfClks_MouseClick(object sender, MouseEventArgs e)
@@ -437,7 +501,7 @@ namespace LEDArrayDashboardSimple
             btnExpand.BackColor = SystemColors.ActiveCaption;
             
         }
-
+        //Function pboxLEDmatrix_Paint paints the grid upon first loading the control
         private void pboxLEDmatrix_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -470,29 +534,29 @@ namespace LEDArrayDashboardSimple
                     case signals.b0:
                         b0.Active = toggle_signal(b0);
                         break;
-                    //case signals.r1:
-                    //    signal = r1;
-                    //    break;
-                    //case signals.g1:
-                    //    signal = g1;
-                    //    break;
-                    //case signals.b1:
-                    //    signal = b1;
-                    //    break;
-                    //case signals.A:
-                    //    signal = A;
-                    //    break;
-                    //case signals.B:
-                    //    signal = B;
-                    //    break;
-                    //case signals.C:
-                    //    signal = C;
-                    //    break;
-                    //case signals.D:
-                    //    signal = D;
-                    //    break;
+                    case signals.r1:
+                        r1.Active = toggle_signal(r1);
+                        break;
+                    case signals.g1:
+                        g1.Active = toggle_signal(g1);
+                        break;
+                    case signals.b1:
+                        b1.Active = toggle_signal(b1);
+                        break;
+                    case signals.A:
+                        A.Active = toggle_signal(A);
+                        break;
+                    case signals.B:
+                        B.Active = toggle_signal(B);
+                        break;
+                    case signals.C:
+                        C.Active = toggle_signal(C);
+                        break;
+                    case signals.D:
+                        D.Active = toggle_signal(D);
+                        break;
                     case signals.stb:
-                        
+                        stb.Active = toggle_signal(stb);
                         break;
                     case signals.clk:
                         clk.Active = toggle_signal(clk);
@@ -517,62 +581,209 @@ namespace LEDArrayDashboardSimple
                  
             }
 
-            private void fill_row(int row_address, int rgb0, int rgb1)
+            private void fill_row()//int row_address, Stack<int> row)
             {
-                //fill the row with the color for desired colors. Called one time per clock. 
+                
+                //technically the drawing should be done from some buffer in another function
+                //, hard coding for test
+                //rgb0 = (rgbColors)get_color_rgb0();
+                topRow.Push(get_color_rgb0());////should only push in clock or fill row and draw row 
+                bottomRow.Push(get_color_rgb1());
+                //should be a different function...
+
+                //Console.WriteLine("--- Stack contents ---");
+                toolStripStatusLabel2.Text = "";
+                foreach (int i in bottomRow)
+                {
+                    toolStripStatusLabel2.Text += i + " ";
+                }
+                
+                //fill the row QUEUE with the color for desired colors. Called one time per clock. 
                 //pushed the color into the first column of the row all other colors shift 
                 //into the row by one column
-
+                if (!OE.Active) 
+                        if(stb.Active)draw_row();
             }
 
-            private void clear_row(int row_address)
+            private void draw_row()
             {
-                //clears the row before changing the address
-                //technically clears the row when a new address is selected.
-            }
 
-
-            private void clock()
-            {
                 rgbColors rgb0;
                 rgbColors rgb1;
                 //technically the drawing should be done from some buffer in another function
                 //, hard coding for test
                 //rgb0 = (rgbColors)get_color_rgb0();
-                topRow.Push(get_color_rgb0());
-                
-                //Console.WriteLine("--- Stack contents ---");
-                toolStripStatusLabel2.Text = "";
-                foreach (int i in topRow)
-                {
-                    toolStripStatusLabel2.Text += i + " ";
-                }
+    //topRow.Push(get_color_rgb0());////should only push in clock or fill row and draw row 
+    ////should be a different function...
+
+    ////Console.WriteLine("--- Stack contents ---");
+    //toolStripStatusLabel2.Text = "";
+    //foreach (int i in topRow)
+    //{
+    //    toolStripStatusLabel2.Text += i + " ";
+    //}
+
+
+
+    //======================TOP ROW=====================================
+
                 //topRow.
                 //Graphics g = e.Graphics;
                 int numOfCells = 32;//use these for rectangle size and incriment
                 int cellSize = 5;//use these for rectangle size and incriment
-                int x = 0;//location of LED to paint row
-                int y = 0;//location of LED to paint Column
+                int col = 0;//location of LED to paint row
+                int row = address;//location of LED to paint Column
                 Graphics graphicsObj;
 
-                
+
                 //Draw a solid Rectangle of desired color
                 graphicsObj = pboxLEDmatrix.CreateGraphics();
-                SolidBrush myBrush = new SolidBrush(Color.Crimson);
-                while (x < 160)
+                //get_system_from_rgb(i);
+                foreach (int i in topRow)
                 {
-                    Rectangle myRectangle1 = new Rectangle(x, y, 5, 5);
+                    SolidBrush myBrush = new SolidBrush(get_system_from_rgb(i));
+                    Rectangle myRectangle1 = new Rectangle(col, row * 5, 5, 5);
                     graphicsObj.FillRectangle(myBrush, myRectangle1);
-                //suround the solid rectangle with a black rectangle for visual aestetics
-                //graphicsObj = pictureBox1.CreateGraphics();
+                    //suround the solid rectangle with a black rectangle for visual aestetics
+                    //graphicsObj = pictureBox1.CreateGraphics();
                     Pen myPen = new Pen(Color.Black, 1);
-                    Rectangle myRectangle2 = new Rectangle(x, y, 5, 5);
+                    Rectangle myRectangle2 = new Rectangle(col, row * 5, 5, 5);
                     //graphicsObj.DrawEllipse(myPen, myRectangle2);
-                    
+
+                    graphicsObj.DrawRectangle(myPen, myRectangle2);
+                    col += 5;
+                    if (true)
+                    {
+                    }
+
+                }
+
+
+
+
+        //===========================Bottom row==========================
+                
+                col = 0;//location of LED to paint row
+                row = address;//location of LED to paint Column
+                //Graphics graphicsObj;
+
+
+                //Draw a solid Rectangle of desired color
+                //graphicsObj = pboxLEDmatrix.CreateGraphics();
+                //get_system_from_rgb(i);
+                foreach (int i in bottomRow)
+                {
+                    SolidBrush myBrush = new SolidBrush(get_system_from_rgb(i));
+                    Rectangle myRectangle1 = new Rectangle(col, (row * 5)+80, 5, 5);
+                    graphicsObj.FillRectangle(myBrush, myRectangle1);
+                    //suround the solid rectangle with a black rectangle for visual aestetics
+                    //graphicsObj = pictureBox1.CreateGraphics();
+                    Pen myPen = new Pen(Color.Black, 1);
+                    Rectangle myRectangle2 = new Rectangle(col, (row * 5) +80, 5, 5);
+                    //graphicsObj.DrawEllipse(myPen, myRectangle2);
+
+                    graphicsObj.DrawRectangle(myPen, myRectangle2);
+                    col += 5;
+                    if (true)
+                    {
+                    }
+
+                }
+                
+            }
+
+            private void clear_row()//need to put address as parameters
+            {
+                
+
+                //int row = address;
+                int col = 0;
+                Graphics graphicsObj;
+
+
+                //Draw a solid Rectangle of desired color
+                graphicsObj = pboxLEDmatrix.CreateGraphics();
+                SolidBrush myBrush = new SolidBrush(Color.Gray);
+
+                //TOP ROW CLEAR
+                while (col < 160)
+                {
+                    Rectangle myRectangle1 = new Rectangle(col, address * 5, 5, 5);
+                    graphicsObj.FillRectangle(myBrush, myRectangle1);
+                    //suround the solid rectangle with a black rectangle for visual aestetics
+                    //graphicsObj = pictureBox1.CreateGraphics();
+                    Pen myPen = new Pen(Color.Black, 1);
+                    Rectangle myRectangle2 = new Rectangle(col, address * 5, 5, 5);
+                    //graphicsObj.DrawEllipse(myPen, myRectangle2);
+
                     graphicsObj.DrawRectangle(myPen, myRectangle2);
 
-                    x +=5;
+                    col += 5;
                 }
+
+
+                //BOTTOM ROW CLEAR
+                col = 0;
+                while (col < 160)
+                {
+                    Rectangle myRectangle1 = new Rectangle(col, (address * 5)+80, 5, 5);
+                    graphicsObj.FillRectangle(myBrush, myRectangle1);
+                    //suround the solid rectangle with a black rectangle for visual aestetics
+                    //graphicsObj = pictureBox1.CreateGraphics();
+                    Pen myPen = new Pen(Color.Black, 1);
+                    Rectangle myRectangle2 = new Rectangle(col, (address * 5)+80, 5, 5);
+                    //graphicsObj.DrawEllipse(myPen, myRectangle2);
+
+                    graphicsObj.DrawRectangle(myPen, myRectangle2);
+
+                    col += 5;
+                }
+            }
+
+
+            private void clock()
+            {
+
+                fill_row();
+                //rgbColors rgb0;
+                //rgbColors rgb1;
+                ////technically the drawing should be done from some buffer in another function
+                ////, hard coding for test
+                ////rgb0 = (rgbColors)get_color_rgb0();
+                //topRow.Push(get_color_rgb0());
+                
+                ////Console.WriteLine("--- Stack contents ---");
+                //toolStripStatusLabel2.Text = "";
+                //foreach (int i in topRow)
+                //{
+                //    toolStripStatusLabel2.Text += i + " ";
+                //}
+                ////topRow.
+                ////Graphics g = e.Graphics;
+                //int numOfCells = 32;//use these for rectangle size and incriment
+                //int cellSize = 5;//use these for rectangle size and incriment
+                //int x = 0;//location of LED to paint row
+                //int y = 0;//location of LED to paint Column
+                //Graphics graphicsObj;
+
+                
+                ////Draw a solid Rectangle of desired color
+                //graphicsObj = pboxLEDmatrix.CreateGraphics();
+                //SolidBrush myBrush = new SolidBrush(Color.Crimson);
+                //while (x < 160)
+                //{
+                //    Rectangle myRectangle1 = new Rectangle(x, y, 5, 5);
+                //    graphicsObj.FillRectangle(myBrush, myRectangle1);
+                ////suround the solid rectangle with a black rectangle for visual aestetics
+                ////graphicsObj = pictureBox1.CreateGraphics();
+                //    Pen myPen = new Pen(Color.Black, 1);
+                //    Rectangle myRectangle2 = new Rectangle(x, y, 5, 5);
+                //    //graphicsObj.DrawEllipse(myPen, myRectangle2);
+                    
+                //    graphicsObj.DrawRectangle(myPen, myRectangle2);
+
+                //    x +=5;
+                //}
 
 
 
@@ -597,68 +808,113 @@ namespace LEDArrayDashboardSimple
                     //not sure what parameters are needed yet
                     //This needs to be done first allowint drawing if true
             }
-            private void stb(int row_address)
+            private void stb_set(int row_address)
             {
                 //Allows the leds to be on
                 //not sure what parameters are needed yet
             }
 
-            private void address_abcd_changed(int row_address)
+            private void address_abcd_changed()
             {
-                //Allows the leds to be on
-                //not sure what parameters are needed yet
+//redraw the new rows
             }
 
-            private void get_address(int row_address)
-            {
-                //Allows the leds to be on
-                //not sure what parameters are needed yet
-            }
 
-            private void set_address(int row_address)
-            {
-                //Allows the leds to be on
-                //not sure what parameters are needed yet
-            }
+        //set address will be called when an address changes and if stobe is active
+        //then the new row address should be drawn from the existing stacks topRow and bottomRow
+            private void set_address()
+            {                
+                address = 0;
 
+                address = Convert.ToInt32(A.Active);
+                address += (Convert.ToInt32(B.Active)) * 2;
+                address += (Convert.ToInt32(C.Active)) * 4;
+                address += (Convert.ToInt32(D.Active)) * 8;
+                
+                
+            }
+        //the next two functions return the decimal version of the encoded rgb values
+        //might be able to streamline this later by removing the reference to only 
+        //rgb0 and rgb1 by requesting the top or bottom and return the correct value.
+        //could also be more efficient by setting aside a variable rather than calculating
+        //the value evertime.
             private int get_color_rgb0()
-            {   int color0 = 0;
-            //color set to test only //remove for production
-            //r0.Active = false;//remove for production
-            //b0.Active = true;//remove for production
-            //g0.Active = true;//remove for production
+            {   
+                int color0 = 0;
+                
 
-            color0 = Convert.ToInt32(r0.Active);
-            color0 += (Convert.ToInt32(g0.Active))*2;
-            color0 += (Convert.ToInt32(b0.Active)) * 4;
-                //Allows the leds to be on
-                //not sure what parameters are needed yet
+                color0 = Convert.ToInt32(r0.Active);
+                color0 += (Convert.ToInt32(g0.Active)) * 2;
+                color0 += (Convert.ToInt32(b0.Active)) * 4;
+                   
+                             
 
-            if (color0 == 1)
-            { 
+                return color0;
             }
 
-            return color0;
-            }
             private int get_color_rgb1()
             {
-                int color1 = 1;
-                //color set to test only //remove for production
-                
-                //uncomment below after created r1 g1 b1
-                //color1 = Convert.ToInt32(r1.Active);
-                //color1 += (Convert.ToInt32(g1.Active)) * 2;
-                //color1 += (Convert.ToInt32(b1.Active)) * 4;
-                //Allows the leds to be on
-                //not sure what parameters are needed yet
-                
+                int color1 = 0;
+
+                color1 = Convert.ToInt32(r1.Active);    
+                color1 += (Convert.ToInt32(g1.Active)) * 2;
+                color1 += (Convert.ToInt32(b1.Active)) * 4;
+
+
                 return color1;
             }
+            public Color get_system_from_rgb(int colorIn)
+            {
+                //Color colorOut;
+                //rgbColors TmpColor = (rgbColors)colorIn;  //tried switching off this emunrgbColors did
+                //not work, said that the enum in this case red was not defined in this scope
+                switch (colorIn)
+                {
+                    case 1:
+                        return Color.Crimson;
+                        //break;
+                    case 2:
+                        return Color.Green;
+                       // break;
+                    case 3:
+                        return Color.Orange;
+                      //  break;
+                    case 4:
+                        return Color.Blue;
+                      //  break;
+                    case 5:
+                        return Color.Purple;
+                     //   break;
+                    case 6:
+                        return Color.Yellow;
+                    //    break;
+                    case 7:
+                        return Color.White;
+                    //    break;
+                };
+                //fall through led off or error case
+                return Color.Gray;
+            }
+
+
 
             private void set_color_rgb()
             {
                 //Allows the leds to be on
                 //not sure what parameters are needed yet
+            }
+
+            private void btnReset_Click(object sender, EventArgs e)
+            {
+                pboxLEDmatrix.InitialImage = null;
+                clear_row();// this might be done by repainting the picturebox entirely as well.
+                topRow.Clear();
+                bottomRow.Clear();
+            }
+
+            private void groupBox2_Enter(object sender, EventArgs e)
+            {
+
             }
 
 
